@@ -4,8 +4,8 @@ function getTilesDOM() {
 
 const DOM = {
   tiles: getTilesDOM(),
-  x: "blue", //`<i class="far fa-check-circle tictac"></i>`,
-  o: "green", //`<i class="fas fa-minus-circle tictac"></i>`,
+  x: "blue", // Image here
+  o: "green", // Image here
   warning: document.querySelector(".warning"),
   boardSizeInput: document.querySelector("#board-size-input"),
   toWinInput: document.querySelector("#to-win-input"),
@@ -179,10 +179,7 @@ function insertToken(event) {
         state.player[state.currentPlayer].length - 1
       ]
     );
-
-    // console.log(state.currentPlayer);
     switchPlayer(state.currentPlayer);
-    // console.log(state.currentPlayer);
   } else {
     tileNotEmptyWarning();
     clearWarning();
