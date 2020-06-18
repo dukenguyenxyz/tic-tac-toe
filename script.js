@@ -59,29 +59,37 @@ function addPointsToToken(tileObj) {
   winThroughDiagonalTopRight(tileObj);
 }
 
+function mutatePoints(aTile, tileObj, position) {
+  aTile.point[position] += tileObj.point[position];
+  tileObj.point[position] = aTile.point[position];
+}
+
+const operatorWith1 = {
+  "+": function (num) {
+    return num++;
+  },
+  "-": function (num) {
+    return num--;
+  },
+};
+
+function movingDirection(tileObj, aTile, coordinate, operator) {
+  return (
+    tileObj.position[coordinate] ===
+    operatorWith1[operator](aTile.position[coordinate])
+  );
+}
+
 function winThroughXorY(tileObj, coordinate) {
   state.player[state.currentPlayer].forEach((aTile) => {
     if (
-      aTile.position[reverseCoordinate(coordinate)] ===
+      (aTile.position[reverseCoordinate(coordinate)] ===
         tileObj.position[reverseCoordinate(coordinate)] &&
-      (aTile.position[coordinate] === tileObj.position[coordinate] + 1 ||
-        aTile.position[coordinate] === tileObj.position[coordinate] - 1)
+        movingDirection(tileObj, aTile, coordinate, "-")) ||
+      movingDirection(tileObj, aTile, coordinate, "+")
     ) {
-      aTile.point[coordinate] += tileObj.point[coordinate];
-      tileObj.point[coordinate] = aTile.point[coordinate];
-
-      // console.log(
-      //   `${JSON.stringify(aTile)} aTile point is ${aTile.point[coordinate]}`
-      // );
-      // console.log(
-      //   `${JSON.stringify(tileObj)} tileObj point is ${
-      //     tileObj.point[coordinate]
-      //   }`
-      // );
-
-      if (checkWinner(tileObj.point[coordinate])) {
-        declareWinner();
-      }
+      mutatePoints(aTile, tileObj, coordinate);
+      if (checkWinner(tileObj.point[coordinate])) declareWinner();
     }
   });
 }
@@ -90,18 +98,14 @@ function winThroughDiagonalTopLeft(tileObj) {
   state.player[state.currentPlayer].forEach((aTile) => {
     if (
       // Positive Case
-      (tileObj.position["x"] === aTile.position["x"] + 1 &&
-        tileObj.position["y"] === aTile.position["y"] + 1) ||
+      (movingDirection(tileObj, aTile, "x", "+") &&
+        movingDirection(tileObj, aTile, "y", "+")) ||
       // Negative Case
-      (tileObj.position["x"] === aTile.position["x"] - 1 &&
-        tileObj.position["y"] === aTile.position["y"] - 1)
+      (movingDirection(tileObj, aTile, "x", "-") &&
+        movingDirection(tileObj, aTile, "y", "-"))
     ) {
-      aTile.point["topLeft"] += tileObj.point["topLeft"];
-      tileObj.point["topLeft"] = aTile.point["topLeft"];
-
-      if (checkWinner(tileObj.point["topLeft"])) {
-        declareWinner();
-      }
+      mutatePoints(aTile, tileObj, "topLeft");
+      if (checkWinner(tileObj.point["topLeft"])) declareWinner();
     }
   });
 }
@@ -110,18 +114,14 @@ function winThroughDiagonalTopRight(tileObj) {
   state.player[state.currentPlayer].forEach((aTile) => {
     if (
       // Positive Case
-      (tileObj.position["x"] === aTile.position["x"] + 1 &&
-        tileObj.position["y"] === aTile.position["y"] - 1) ||
+      (movingDirection(tileObj, aTile, "x", "+") &&
+        movingDirection(tileObj, aTile, "y", "-")) ||
       // Negative Case
-      (tileObj.position["x"] === aTile.position["x"] - 1 &&
-        tileObj.position["y"] === aTile.position["y"] + 1)
+      (movingDirection(tileObj, aTile, "x", "-") &&
+        movingDirection(tileObj, aTile, "y", "+"))
     ) {
-      aTile.point["topRight"] += tileObj.point["topRight"];
-      tileObj.point["topRight"] = aTile.point["topRight"];
-
-      if (checkWinner(tileObj.point["topRight"])) {
-        declareWinner();
-      }
+      mutatePoints(aTile, tileObj, "topRight");
+      if (checkWinner(tileObj.point["topRight"])) declareWinner();
     }
   });
 }
@@ -170,10 +170,7 @@ function insertToken(event) {
         state.player[state.currentPlayer].length - 1
       ]
     );
-
-    // console.log(state.currentPlayer);
     switchPlayer(state.currentPlayer);
-    // console.log(state.currentPlayer);
   } else {
     tileNotEmptyWarning();
     clearWarning();
