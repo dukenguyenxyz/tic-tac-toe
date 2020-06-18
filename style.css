@@ -1,20 +1,63 @@
-table {
-  height: 50vh;
-  width: 50vh;
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
   display: flex;
+  align-items: top;
+  justify-content: center;
+  text-align: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-td {
+.player-score {
+  font-size: 6vh;
   border: 1px black solid;
-  background-color: rgba(0, 0, 0, 5%);
+  width: 10vh;
+  height: 10vh;
+}
+
+.player-name {
+  width: 15vh;
+  height: 15vh;
+}
+
+#player-x-name {
+  background-color: blue;
+}
+
+#player-o-name {
+  background-color: green;
+}
+
+.column {
+  width: 30vw;
 }
 
 .alert {
   height: 1rem;
+}
+
+table {
+  height: 50vh;
+  width: 50vh;
+}
+
+td {
+  border: 1px black solid;
+  background-color: rgba(0, 0, 0, 5%);
 }

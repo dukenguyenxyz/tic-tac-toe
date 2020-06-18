@@ -7,33 +7,42 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container box">
+    <div class="column">
+      <br /><br />
+      <button class="player-score" id="player-x-score">0</button>
+      <br />
+      <h2>Player 1</h2>
+      <div class="player-name" id="player-x-name"></div>
+      <br /><br />
+      <div>
+        <button id="player-x-avatar-color-button">Color</button>
+        <button id="player-x-avatar-image-button">Image</button>
+      </div>
+    </div>
+    <div class="container">
       <h1>Tic Tac Toe</h1>
       <br />
       <div>
         <span>
           <input
-            size="10"
+            size="6"
             type="text"
             id="board-size-input"
-            placeholder="Board: 3"
+            placeholder="Board:"
           />
+          <button><span id="board-size-output">3</span></button>
         </span>
         &nbsp
         <span>
-          <input
-            size="10"
-            type="text"
-            id="to-win-input"
-            placeholder="To win: 3"
-          />
+          <input size="6" type="text" id="to-win-input" placeholder="To win:" />
+          <button><span id="to-win-output">3</span></button>
         </span>
         <button id="submit-button">Submit</button>
       </div>
       <br />
       <div><p class="alert"></p></div>
-      <br /><br /><br />
-      <table class="table is-bordered is-fullwidth">
+      <br /><br />
+      <table class="table">
         <tbody>
           <tr class="x1">
             <td id="x1 y1"></td>
@@ -52,6 +61,18 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="column">
+      <br /><br />
+      <button class="player-score" id="player-o-score">0</button>
+      <br />
+      <h2>Player 2</h2>
+      <div class="player-name" id="player-o-name"></div>
+      <br /><br />
+      <div>
+        <button id="player-o-avatar-color-button">Color</button>
+        <button id="player-o-avatar-image-button">Image</button>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
