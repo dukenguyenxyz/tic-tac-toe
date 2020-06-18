@@ -1,10 +1,15 @@
+function getTilesDOM() {
+  return Array.from(document.querySelectorAll("td"));
+}
+
 const DOM = {
-  tiles: Array.from(document.querySelectorAll("td")),
+  tiles: getTilesDOM(),
   x: "blue", //`<i class="far fa-check-circle tictac"></i>`,
   o: "green", //`<i class="fas fa-minus-circle tictac"></i>`,
   warning: document.querySelector(".warning"),
   boardSizeInput: document.querySelector("#board-size-input"),
-  boardSizeButton: document.querySelector("#board-size-button"),
+  toWinInput: document.querySelector("#to-win-input"),
+  submitButton: document.querySelector("#submit-button"),
   board: document.querySelector("tbody"),
 };
 
@@ -19,6 +24,7 @@ let state = {
     o: "Green",
   },
   boardSize: 3,
+  toWin: 3,
 };
 
 function reverseCoordinate(token) {
@@ -123,7 +129,7 @@ function winThroughDiagonalTopRight(tileObj) {
 }
 
 function checkWinner(point) {
-  if (point >= 3) {
+  if (point >= state.toWin) {
     return true;
   }
   return false;
@@ -183,14 +189,44 @@ function insertToken(event) {
   }
 }
 
-function changeBoardSize() {
-  if (boardSizeInput.value.trim() != "") {
-    state.boardSize = parseInt(boardSizeInput.value);
+function setting() {
+  gamePlayOff();
+
+  const boardSizeNum = parseInt(DOM.boardSizeInput.value);
+  if (!isNaN(boardSizeNum) && DOM.boardSizeInput.value.trim() != "") {
+    state.boardSize = boardSizeNum;
+    DOM.board.innerHTML = "";
+
+    for (let i = 0; i < boardSizeNum; i++) {
+      const boardRow = document.createElement("tr");
+      boardRow.classList = "x" + (i + 1);
+      for (let i1 = 0; i1 < boardSizeNum; i1++) {
+        const boardCell = document.createElement("td");
+        boardCell.id = boardRow.classList + " " + "y" + (i1 + 1);
+        boardRow.insertAdjacentElement("beforeend", boardCell);
+      }
+      DOM.board.insertAdjacentElement("beforeend", boardRow);
+    }
   }
+  DOM.tiles = getTilesDOM();
+
+  const toWinNum = parseInt(DOM.toWinInput.value);
+  if (!isNaN(toWinNum) && DOM.toWinInput.value.trim() != "") {
+    state.toWin = toWinNum;
+  }
+
+  main();
 }
 
-DOM.tiles.forEach((tile) => {
-  tile.addEventListener("click", insertToken);
-});
+function main() {
+  DOM.tiles.forEach((tile) => {
+    tile.addEventListener("click", insertToken);
+  });
+}
 
-boardSizeButton.addEventListener("click", changeBoardSize);
+main();
+
+DOM.submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  setting();
+});

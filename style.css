@@ -15,6 +15,10 @@ td {
   background-color: rgba(0, 0, 0, 5%);
 }
 
+.warning {
+  height: 1rem;
+}
+
 /* td {
   height: 50px;
   width: 50px;
