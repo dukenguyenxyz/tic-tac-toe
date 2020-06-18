@@ -15,15 +15,6 @@ td {
   background-color: rgba(0, 0, 0, 5%);
 }
 
-.warning {
+.alert {
   height: 1rem;
 }
-
-/* td {
-  height: 50px;
-  width: 50px;
-} */
-
-/* .tictac {
-  height: 100px;
-} */

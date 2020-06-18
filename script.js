@@ -6,7 +6,7 @@ const DOM = {
   tiles: getTilesDOM(),
   x: "blue", // Image here
   o: "green", // Image here
-  warning: document.querySelector(".warning"),
+  alert: document.querySelector(".alert"),
   boardSizeInput: document.querySelector("#board-size-input"),
   toWinInput: document.querySelector("#to-win-input"),
   submitButton: document.querySelector("#submit-button"),
@@ -37,8 +37,8 @@ function reverseCoordinate(token) {
 
 function tileEmpty(tile) {
   if (
-    // !tile.innerHTML
-    tile.style.backgroundColor == ""
+    // Photo case: !tile.innerHTML
+    tile.style.backgroundColor == "" // Background color case
   ) {
     return true;
   } else {
@@ -47,17 +47,18 @@ function tileEmpty(tile) {
 }
 
 function tileNotEmptyWarning() {
-  DOM.warning.innerText = "This tile is not available";
+  DOM.alert.innerText = "This tile is not available";
 }
 
 function clearWarning() {
-  DOM.warning.innerText = "";
+  DOM.alert.innerText = "";
 }
 
 function switchPlayer(prevPlayer) {
   state.currentPlayer = prevPlayer === "x" ? "o" : "x";
 }
 
+// Converts HTML ID to JavaScript Object for Tile Position
 function tileJSPosition(tile) {
   const splitTile = tile.split(" ");
   return {
@@ -142,7 +143,7 @@ function gamePlayOff() {
 }
 
 function declareWinner() {
-  DOM.warning.innerHTML = `<p>Player ${
+  DOM.alert.innerHTML = `<p>Player ${
     state.playerName[state.currentPlayer]
   } has won</p>`;
   gamePlayOff();
@@ -166,15 +167,24 @@ function addTokenToState(tileObj) {
 function insertToken(event) {
   clearWarning();
   const tile = event.target;
+
   if (tileEmpty(tile)) {
+    //// Adding placed tile to UI
     // Insert photo mode
     // tile.insertAdjacentHTML("beforeend", DOM[state.currentPlayer]);
 
     // Colour mode
     tile.style.backgroundColor = DOM[state.currentPlayer];
 
+    //// Addding placed tile info to database
+
+    // Parsing tile from HTML id to JavaScript object
     const tileObj = tileJSPosition(tile.id);
+
+    // Adding tile to player's move array
     addTokenToState(tileObj);
+
+    // Adding points to tile's point tracker and check winning condition
     addPointsToToken(
       state.player[state.currentPlayer][
         state.player[state.currentPlayer].length - 1
