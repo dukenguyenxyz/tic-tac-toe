@@ -47,7 +47,7 @@ function tileEmpty(tile) {
 }
 
 function tileNotEmptyWarning() {
-  DOM.warning.innerHTML = "<p>This tile is not available</p>";
+  DOM.warning.innerText = "This tile is not available";
 }
 
 function clearWarning() {
@@ -164,6 +164,7 @@ function addTokenToState(tileObj) {
 }
 
 function insertToken(event) {
+  clearWarning();
   const tile = event.target;
   if (tileEmpty(tile)) {
     // Insert photo mode
@@ -182,7 +183,6 @@ function insertToken(event) {
     switchPlayer(state.currentPlayer);
   } else {
     tileNotEmptyWarning();
-    clearWarning();
   }
 }
 
