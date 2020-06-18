@@ -1,6 +1,18 @@
 table {
-  height: 300px;
-  width: 300px;
+  height: 50vh;
+  width: 50vh;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+td {
+  border: 1px black solid;
+  background-color: rgba(0, 0, 0, 5%);
 }
 
 /* td {

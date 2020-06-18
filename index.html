@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Budget Tracker</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css" />
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
-    />
+    /> -->
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
@@ -18,8 +18,21 @@
     <section class="hero is-primary is-fullheight">
       <div class="hero-body">
         <div class="container box">
+          <h1>Tic Tac Toe</h1>
+          <br />
+          <div>
+            <span>
+              <input
+                size="3"
+                type="text"
+                id="board-size-input"
+                placeholder="3"
+              />
+            </span>
+            <button id="board-size-button">Submit</button>
+          </div>
           <div class="warning"></div>
-          <br /><br />
+          <br /><br /><br /><br />
           <table class="table is-bordered is-fullwidth">
             <tbody>
               <tr class="x1">

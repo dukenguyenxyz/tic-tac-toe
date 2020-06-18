@@ -1,8 +1,11 @@
 const DOM = {
   tiles: Array.from(document.querySelectorAll("td")),
-  x: `<i class="far fa-check-circle tictac"></i>`,
-  o: `<i class="fas fa-minus-circle tictac"></i>`,
+  x: "blue", //`<i class="far fa-check-circle tictac"></i>`,
+  o: "green", //`<i class="fas fa-minus-circle tictac"></i>`,
   warning: document.querySelector(".warning"),
+  boardSizeInput: document.querySelector("#board-size-input"),
+  boardSizeButton: document.querySelector("#board-size-button"),
+  board: document.querySelector("tbody"),
 };
 
 let state = {
@@ -11,6 +14,11 @@ let state = {
     x: [],
     o: [],
   },
+  playerName: {
+    x: "Blue",
+    o: "Green",
+  },
+  boardSize: 3,
 };
 
 function reverseCoordinate(token) {
@@ -22,10 +30,14 @@ function reverseCoordinate(token) {
 }
 
 function tileEmpty(tile) {
-  if (!tile.innerHTML) {
+  if (
+    // !tile.innerHTML
+    tile.style.backgroundColor == ""
+  ) {
     return true;
+  } else {
+    return false;
   }
-  return false;
 }
 
 function tileNotEmptyWarning() {
@@ -73,19 +85,6 @@ function winThroughXorY(tileObj, coordinate) {
         aTile.position[coordinate] === tileObj.position[coordinate] - 1)
     ) {
       mutatePoints(aTile, tileObj, coordinate);
-
-      // aTile.point[coordinate] += tileObj.point[coordinate];
-      // tileObj.point[coordinate] = aTile.point[coordinate];
-
-      // console.log(
-      //   `${JSON.stringify(aTile)} aTile point is ${aTile.point[coordinate]}`
-      // );
-      // console.log(
-      //   `${JSON.stringify(tileObj)} tileObj point is ${
-      //     tileObj.point[coordinate]
-      //   }`
-      // );
-
       if (checkWinner(tileObj.point[coordinate])) declareWinner();
     }
   });
@@ -102,10 +101,6 @@ function winThroughDiagonalTopLeft(tileObj) {
         tileObj.position["y"] === aTile.position["y"] - 1)
     ) {
       mutatePoints(aTile, tileObj, "topLeft");
-
-      // aTile.point["topLeft"] += tileObj.point["topLeft"];
-      // tileObj.point["topLeft"] = aTile.point["topLeft"];
-
       if (checkWinner(tileObj.point["topLeft"])) declareWinner();
     }
   });
@@ -122,10 +117,6 @@ function winThroughDiagonalTopRight(tileObj) {
         tileObj.position["y"] === aTile.position["y"] + 1)
     ) {
       mutatePoints(aTile, tileObj, "topRight");
-
-      // aTile.point["topRight"] += tileObj.point["topRight"];
-      // tileObj.point["topRight"] = aTile.point["topRight"];
-
       if (checkWinner(tileObj.point["topRight"])) declareWinner();
     }
   });
@@ -145,7 +136,9 @@ function gamePlayOff() {
 }
 
 function declareWinner() {
-  DOM.warning.innerHTML = `<p>Player ${state.currentPlayer} has won</p>`;
+  DOM.warning.innerHTML = `<p>Player ${
+    state.playerName[state.currentPlayer]
+  } has won</p>`;
   gamePlayOff();
 }
 
@@ -167,7 +160,12 @@ function addTokenToState(tileObj) {
 function insertToken(event) {
   const tile = event.target;
   if (tileEmpty(tile)) {
-    tile.insertAdjacentHTML("beforeend", DOM[state.currentPlayer]);
+    // Insert photo mode
+    // tile.insertAdjacentHTML("beforeend", DOM[state.currentPlayer]);
+
+    // Colour mode
+    tile.style.backgroundColor = DOM[state.currentPlayer];
+
     const tileObj = tileJSPosition(tile.id);
     addTokenToState(tileObj);
     addPointsToToken(
@@ -185,6 +183,14 @@ function insertToken(event) {
   }
 }
 
+function changeBoardSize() {
+  if (boardSizeInput.value.trim() != "") {
+    state.boardSize = parseInt(boardSizeInput.value);
+  }
+}
+
 DOM.tiles.forEach((tile) => {
   tile.addEventListener("click", insertToken);
 });
+
+boardSizeButton.addEventListener("click", changeBoardSize);
