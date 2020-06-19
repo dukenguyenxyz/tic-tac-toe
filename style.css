@@ -31,16 +31,16 @@ body {
   height: 10vh;
 }
 
-.player-name {
+.player-avatar {
   width: 15vh;
   height: 15vh;
 }
 
-#player-x-name {
+#player-x-avatar {
   background-color: blue;
 }
 
-#player-o-name {
+#player-o-avatar {
   background-color: green;
 }
 

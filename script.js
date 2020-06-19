@@ -11,6 +11,21 @@ const DOM = {
   toWinInput: document.querySelector("#to-win-input"),
   submitButton: document.querySelector("#submit-button"),
   board: document.querySelector("tbody"),
+
+  player: {
+    x: {
+      name: document.querySelector("#player-x-avatar"),
+      score: document.querySelector("#player-x-score"),
+      avatarColorBtn: document.querySelector("#player-x-avatar-color-button"),
+      avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
+    },
+    o: {
+      name: document.querySelector("#player-o-avatar"),
+      score: document.querySelector("#player-o-score"),
+      avatarColorBtn: document.querySelector("#player-o-avatar-color-button"),
+      avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
+    },
+  },
 };
 
 let state = {
