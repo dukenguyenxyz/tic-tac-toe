@@ -48,6 +48,12 @@ body {
   width: 30vw;
 }
 
+.table-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .alert {
   height: 1rem;
 }

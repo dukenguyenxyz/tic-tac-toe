@@ -12,6 +12,9 @@ const DOM = {
   submitButton: document.querySelector("#submit-button"),
   board: document.querySelector("tbody"),
 
+  continueBtn: document.querySelector("#continue-btn"),
+  resetBtn: document.querySelector("#reset-btn"),
+
   player: {
     x: {
       name: document.querySelector("#player-x-avatar"),
@@ -30,6 +33,7 @@ const DOM = {
 
 let state = {
   currentPlayer: "x",
+  winner: false,
   player: {
     x: [],
     o: [],
@@ -37,6 +41,10 @@ let state = {
   playerName: {
     x: "Blue",
     o: "Green",
+  },
+  point: {
+    x: 0,
+    o: 0,
   },
   boardSize: 3,
   toWin: 3,
@@ -151,6 +159,33 @@ function checkWinner(point) {
   return false;
 }
 
+function checkDraw() {
+  // Method 1
+  // let tileCount = 0;
+  // DOM.tiles.forEach((tile) => {
+  //   if (tileEmpty(tile)) tileCount++;
+  // });
+  // if (tileCount === DOM.tiles.length) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+
+  // Method 2
+  if (state.player.x.length + state.player.o.length === DOM.tiles.length) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function declareDraw() {
+  // Display UI
+  DOM.alert.innerHTML = `<p>This is a draw</p>`;
+
+  gameContinueReset();
+}
+
 function gamePlayOff() {
   DOM.tiles.forEach((tile) => {
     tile.removeEventListener("click", insertToken);
@@ -158,10 +193,68 @@ function gamePlayOff() {
 }
 
 function declareWinner() {
+  // Display UI
   DOM.alert.innerHTML = `<p>Player ${
     state.playerName[state.currentPlayer]
   } has won</p>`;
+
+  // Add points to user in DB
+  state.point[state.currentPlayer] += 1;
+
+  // Change winning status
+  state.winner = true;
+
+  // Add points to the UI
+  DOM.player[state.currentPlayer].score.innerText =
+    state.point[state.currentPlayer];
+
+  gameContinueReset();
+}
+
+function gameContinueReset() {
+  // Reset the game
+  DOM.continueBtn.disabled = false;
+
+  // Turn off Game
   gamePlayOff();
+
+  // Continue
+  DOM.continueBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    reset();
+  });
+}
+
+function gameResetAll() {
+  gamePlayOff();
+
+  // Clear DB
+  state.point.x = 0;
+  state.point.o = 0;
+
+  // Clear UI
+  DOM.player.x.score.innerText = state.point.x;
+  DOM.player.o.score.innerText = state.point.o;
+
+  reset();
+}
+
+function reset() {
+  // Reset winner
+  state.winner = false;
+
+  // Clear the UI
+  DOM.alert.innerHTML = "";
+  DOM.tiles.forEach((tile) => {
+    tile.style.backgroundColor = "";
+  });
+
+  // Clear the DB
+  state.player.x = [];
+  state.player.o = [];
+
+  // Rerun the game
+  main();
 }
 
 function addTokenToState(tileObj) {
@@ -205,6 +298,9 @@ function insertToken(event) {
         state.player[state.currentPlayer].length - 1
       ]
     );
+
+    if (checkDraw() & !state.winner) declareDraw();
+
     switchPlayer(state.currentPlayer);
   } else {
     tileNotEmptyWarning();
@@ -244,6 +340,8 @@ function main() {
   DOM.tiles.forEach((tile) => {
     tile.addEventListener("click", insertToken);
   });
+
+  DOM.continueBtn.disabled = true;
 }
 
 main();
@@ -251,4 +349,9 @@ main();
 DOM.submitButton.addEventListener("click", (e) => {
   e.preventDefault();
   setting();
+});
+
+DOM.resetBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  gameResetAll();
 });
