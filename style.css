@@ -34,6 +34,7 @@ body {
 .player-avatar {
   width: 15vh;
   height: 15vh;
+  border: 2px black solid;
 }
 
 #player-x-avatar {
