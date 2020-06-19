@@ -4,8 +4,8 @@ function getTilesDOM() {
 
 const DOM = {
   tiles: getTilesDOM(),
-  x: "blue", // Image here
-  o: "green", // Image here
+  // x: "blue", // Image here
+  // o: "green", // Image here
   alert: document.querySelector(".alert"),
   boardSizeInput: document.querySelector("#board-size-input"),
   toWinInput: document.querySelector("#to-win-input"),
@@ -17,19 +17,32 @@ const DOM = {
 
   player: {
     x: {
-      name: document.querySelector("#player-x-avatar"),
+      // name: document.querySelector("#player-x-avatar"),
       score: document.querySelector("#player-x-score"),
+      avatar: document.querySelector("#player-x-avatar"),
       avatarColorBtn: document.querySelector("#player-x-avatar-color-button"),
       avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
     },
     o: {
-      name: document.querySelector("#player-o-avatar"),
+      // name: document.querySelector("#player-o-avatar"),
       score: document.querySelector("#player-o-score"),
+      avatar: document.querySelector("#player-o-avatar"),
       avatarColorBtn: document.querySelector("#player-o-avatar-color-button"),
       avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
     },
   },
 };
+
+function colorDiv(color) {
+  return `<span
+  style="
+    background-color: ${color};
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+  "
+></span>`;
+}
 
 let state = {
   currentPlayer: "x",
@@ -38,9 +51,13 @@ let state = {
     x: [],
     o: [],
   },
+  color: {
+    x: "blue",
+    o: "green",
+  },
   playerName: {
-    x: "Blue",
-    o: "Green",
+    x: colorDiv("blue"), // colorDiv(this.color.x),
+    o: colorDiv("green"), // colorDiv(this.color.o),
   },
   point: {
     x: 0,
@@ -282,7 +299,8 @@ function insertToken(event) {
     // tile.insertAdjacentHTML("beforeend", DOM[state.currentPlayer]);
 
     // Colour mode
-    tile.style.backgroundColor = DOM[state.currentPlayer];
+    // tile.style.backgroundColor = DOM[state.currentPlayer];
+    tile.style.backgroundColor = state.color[state.currentPlayer];
 
     //// Addding placed tile info to database
 
@@ -355,3 +373,34 @@ DOM.resetBtn.addEventListener("click", (e) => {
   e.preventDefault();
   gameResetAll();
 });
+
+// function changeAvatarColor(event) {
+//   const player = event.target.classList.value;
+//   console.log(player);
+// }
+
+// function changeImgColor(event) {
+//   const player = event.target.classList.value;
+//   console.log(player);
+// }
+
+// ["x", "o"].forEach((user) => {
+//   DOM.player[user].avatarColorBtn.addEventListener("click", changeAvatarColor);
+//   DOM.player[user].avatarImgBtn.addEventListener("click", changeImgColor);
+// });
+
+function update(jscolor) {
+  // 'jscolor' instance can be used as a string
+  // paragraph.style.backgroundColor = "#" + jscolor;
+  const player = event.target.classList.value.split(" ")[0];
+  // console.log(player);
+
+  const selectedColour = "#" + jscolor;
+
+  state.playerName[player] = colorDiv(selectedColour);
+  state.color[player] = selectedColour;
+  DOM.player[player].avatar.style.backgroundColor = selectedColour;
+
+  console.log(state.playerName[player]);
+  console.log(DOM.player[player]);
+}

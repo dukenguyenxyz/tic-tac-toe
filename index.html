@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="jscolor.js"></script>
   </head>
   <body>
     <div class="column">
@@ -15,8 +16,17 @@
       <div class="player-avatar" id="player-x-avatar"></div>
       <br /><br />
       <div>
-        <button id="player-x-avatar-color-button">Color</button>
-        <button id="player-x-avatar-image-button">Image</button>
+        <!-- <button class="x" id="player-x-avatar-color-button">Color</button> -->
+        <input
+          class="x"
+          id="player-x-avatar-color-button"
+          class="input"
+          size="7"
+          onchange="update(this.jscolor)"
+          data-jscolor=""
+          value="blue"
+        />
+        <button class="x" id="player-x-avatar-image-button">Image</button>
       </div>
     </div>
     <div class="container">
@@ -78,8 +88,17 @@
       <div class="player-avatar" id="player-o-avatar"></div>
       <br /><br />
       <div>
-        <button id="player-o-avatar-color-button">Color</button>
-        <button id="player-o-avatar-image-button">Image</button>
+        <!-- <button class="o" id="player-o-avatar-color-button">Color</button> -->
+        <input
+          class="o"
+          id="player-o-avatar-color-button"
+          class="input"
+          size="7"
+          onchange="update(this.jscolor)"
+          data-jscolor=""
+          value="green"
+        />
+        <button class="o" id="player-o-avatar-image-button">Image</button>
       </div>
     </div>
     <script src="script.js"></script>
