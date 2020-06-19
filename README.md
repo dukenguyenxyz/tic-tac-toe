@@ -7,11 +7,15 @@ Medium link: https://medium.com/@duke.raphael.ng/tutorial-tic-tac-toe-game-with-
 
 ![Final product](https://cdn-images-1.medium.com/max/2000/1*RL2pOic2pHoKMbdB0ADiHA.gif)
 
-Github Repo: [https://github.com/dukeraphaelng/tic-tac-toe](https://github.com/dukeraphaelng/tic-tac-toe)
+*Github Repo: https://github.com/dukeraphaelng/tic-tac-toe
+Codepen: https://codepen.io/dukeraphaelng/pen/wvMgpmP*
 
-Features:
-- Dynamically generate board depending on board size input.
-- Set winning score
+**Features**
+- Board size is dynamically generated upon user's input instead of being static and hard-coded.
+- Winning score can be set manually.
+
+**Update (19 June 2020)**
+- This app now has a score counting, reset, and changing player's avatar feature. The guide to this second part is coming soon.
 
 
 
