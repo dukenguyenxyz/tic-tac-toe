@@ -9,10 +9,11 @@ const DOM = {
   alert: document.querySelector(".alert"),
   boardSizeInput: document.querySelector("#board-size-input"),
   toWinInput: document.querySelector("#to-win-input"),
-  submitButton: document.querySelector("#submit-button"),
+  submitBtn: document.querySelector("#submit-button"),
   board: document.querySelector("tbody"),
 
   continueBtn: document.querySelector("#continue-btn"),
+  drawBtn: document.querySelector("#draw-btn"),
   resetBtn: document.querySelector("#reset-btn"),
 
   player: {
@@ -21,14 +22,14 @@ const DOM = {
       score: document.querySelector("#player-x-score"),
       avatar: document.querySelector("#player-x-avatar"),
       avatarColorBtn: document.querySelector("#player-x-avatar-color-button"),
-      avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
+      // avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
     },
     o: {
       // name: document.querySelector("#player-o-avatar"),
       score: document.querySelector("#player-o-score"),
       avatar: document.querySelector("#player-o-avatar"),
       avatarColorBtn: document.querySelector("#player-o-avatar-color-button"),
-      avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
+      // avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
     },
   },
 };
@@ -364,7 +365,13 @@ function main() {
 
 main();
 
-DOM.submitButton.addEventListener("click", (e) => {
+DOM.drawBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  gamePlayOff();
+  reset();
+});
+
+DOM.submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   setting();
 });
@@ -374,33 +381,15 @@ DOM.resetBtn.addEventListener("click", (e) => {
   gameResetAll();
 });
 
-// function changeAvatarColor(event) {
-//   const player = event.target.classList.value;
-//   console.log(player);
-// }
-
-// function changeImgColor(event) {
-//   const player = event.target.classList.value;
-//   console.log(player);
-// }
-
-// ["x", "o"].forEach((user) => {
-//   DOM.player[user].avatarColorBtn.addEventListener("click", changeAvatarColor);
-//   DOM.player[user].avatarImgBtn.addEventListener("click", changeImgColor);
-// });
-
 function update(jscolor) {
   // 'jscolor' instance can be used as a string
-  // paragraph.style.backgroundColor = "#" + jscolor;
   const player = event.target.classList.value.split(" ")[0];
-  // console.log(player);
-
   const selectedColour = "#" + jscolor;
 
   state.playerName[player] = colorDiv(selectedColour);
   state.color[player] = selectedColour;
   DOM.player[player].avatar.style.backgroundColor = selectedColour;
 
-  console.log(state.playerName[player]);
-  console.log(DOM.player[player]);
+  // console.log(state.playerName[player]);
+  // console.log(DOM.player[player]);
 }
