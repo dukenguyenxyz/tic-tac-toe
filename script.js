@@ -8,12 +8,13 @@ const DOM = {
   // o: "green", // Image here
   alert: document.querySelector(".alert"),
   boardSizeInput: document.querySelector("#board-size-input"),
+  boardSizeOutput: document.querySelector("#board-size-output"),
   toWinInput: document.querySelector("#to-win-input"),
-  submitBtn: document.querySelector("#submit-button"),
+  toWinOutput: document.querySelector("#to-win-output"),    
+  submitButton: document.querySelector("#submit-button"),
   board: document.querySelector("tbody"),
 
   continueBtn: document.querySelector("#continue-btn"),
-  drawBtn: document.querySelector("#draw-btn"),
   resetBtn: document.querySelector("#reset-btn"),
 
   player: {
@@ -22,14 +23,14 @@ const DOM = {
       score: document.querySelector("#player-x-score"),
       avatar: document.querySelector("#player-x-avatar"),
       avatarColorBtn: document.querySelector("#player-x-avatar-color-button"),
-      // avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
+      avatarImgBtn: document.querySelector("#player-x-avatar-image-button"),
     },
     o: {
       // name: document.querySelector("#player-o-avatar"),
       score: document.querySelector("#player-o-score"),
       avatar: document.querySelector("#player-o-avatar"),
       avatarColorBtn: document.querySelector("#player-o-avatar-color-button"),
-      // avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
+      avatarImgBtn: document.querySelector("#player-o-avatar-image-button"),
     },
   },
 };
@@ -332,6 +333,8 @@ function setting() {
   const boardSizeNum = parseInt(DOM.boardSizeInput.value);
   if (!isNaN(boardSizeNum) && DOM.boardSizeInput.value.trim() != "") {
     state.boardSize = boardSizeNum;
+    DOM.boardSizeOutput.innerHTML = boardSizeNum;
+    DOM.boardSizeInput.value = "";
     DOM.board.innerHTML = "";
 
     for (let i = 0; i < boardSizeNum; i++) {
@@ -350,6 +353,8 @@ function setting() {
   const toWinNum = parseInt(DOM.toWinInput.value);
   if (!isNaN(toWinNum) && DOM.toWinInput.value.trim() != "") {
     state.toWin = toWinNum;
+    DOM.toWinOutput.innerHTML = toWinNum;
+    DOM.toWinInput.value = "";
   }
 
   main();
@@ -365,13 +370,7 @@ function main() {
 
 main();
 
-DOM.drawBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  gamePlayOff();
-  reset();
-});
-
-DOM.submitBtn.addEventListener("click", (e) => {
+DOM.submitButton.addEventListener("click", (e) => {
   e.preventDefault();
   setting();
 });
