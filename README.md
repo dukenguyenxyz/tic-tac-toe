@@ -3,12 +3,11 @@
 
 This is a tutorial on how to build a very basic tic-tac-toe game with vanilla javascript, html, css.
 
-Medium link: https://medium.com/@duke.raphael.ng/tutorial-tic-tac-toe-game-with-vanilla-javascript-4857eaca59e
+[GitHub](https://github.com/dukenguyenxyz/tic-tac-toe)
+[Medium](https://medium.com/swlh/tutorial-tic-tac-toe-game-with-vanilla-javascript-4857eaca59e)
+[Codepen](https://codepen.io/dukenguyenxyz/pen/wvMgpmP)
 
 ![Final product](https://cdn-images-1.medium.com/max/2000/1*RL2pOic2pHoKMbdB0ADiHA.gif)
-
-*Github Repo: https://github.com/dukeraphaelng/tic-tac-toe
-Codepen: https://codepen.io/dukeraphaelng/pen/wvMgpmP*
 
 **Features**
 - Board size is dynamically generated upon user's input instead of being static and hard-coded.
